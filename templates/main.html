@@ -1,0 +1,18 @@
+<!doctype html>
+
+<head>
+    <title>Main page</title>
+</head>
+
+<body>
+    <h1>Main page</h1>
+    <form action="{{ url_for('get_request_counter') }}">
+        <button type="submit" id="request" name="request">GET-request</button>
+    </form>
+    <form action="{{ url_for('get_request_counter') }}" method="POST">
+        <button type="submit" id="request" name="request">POST-request</button>
+    </form>
+    <form action="{{ url_for('statistics') }}">
+        <button type="submit" id="request" name="request">Statistics</button>
+    </form>
+</body>

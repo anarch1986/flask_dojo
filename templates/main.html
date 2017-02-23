@@ -1,18 +1,38 @@
 <!doctype html>
 
 <head>
-    <title>Main page</title>
+    <title>{% if mode is none %}Main page{% elif mode == "get_request"%}Get request counter{% elif mode == "post_request"%}Post request counter{% endif %}</title>
 </head>
 
 <body>
-    <h1>Main page</h1>
+    <h1>{% if mode is none %}Main page{% elif mode == "get_request"%}Get request counted{% elif mode == "post_request"%}Post request counted{% elif mode == "statistics"%}Statistics{% endif %}</h1>
+    {% if mode is none %}
     <form action="{{ url_for('get_request_counter') }}">
         <button type="submit" id="request" name="request">GET-request</button>
     </form>
     <form action="{{ url_for('get_request_counter') }}" method="POST">
-        <button type="submit" id="request" name="request">POST-request</button>
+        <button type="submit" id="post" name="post">POST-request</button>
     </form>
     <form action="{{ url_for('statistics') }}">
-        <button type="submit" id="request" name="request">Statistics</button>
+        <button type="statistics" id="statistics" name="request">Statistics</button>
     </form>
+    {% elif mode == "statistics"%}
+    <table border="1">
+        <tr>
+            <th>Get Count</th>
+            <th>Post Count</th>
+        </tr>
+        <tr>
+            <td>{{ counter.get_counter }}</td>
+            <td>{{ counter.post_counter }}</td>
+        </tr>
+    </table>
+    <form action="{{ url_for('main') }}">
+        <button type="submit" id="main_menu" name="main_menu">Back to main</button>
+    </form>
+    {% else %}
+    <form action="{{ url_for('main') }}">
+        <button type="submit" id="main_menu" name="main_menu">Back to main</button>
+    </form>
+    {% endif %}
 </body>
